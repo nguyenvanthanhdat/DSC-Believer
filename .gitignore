@@ -1,0 +1,8 @@
+/data
+/model/
+/DSC_Believer.egg-info
+*.pyc
+*.egg
+/logs
+/wandb
+/research
