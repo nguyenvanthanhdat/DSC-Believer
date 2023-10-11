@@ -13,7 +13,6 @@ setuptools.setup(
         "sentence-transformers",
         "tqdm",
         "numpy",
-        "torch",
         "ipywidgets",
         "pyparsing"
     ],
