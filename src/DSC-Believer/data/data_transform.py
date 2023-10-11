@@ -11,7 +11,7 @@ from multiprocess import set_start_method
 import torch
 
 # set_start_method("spawn")
-torch.multiprocessing.set_start_method('spawn')
+# torch.multiprocessing.set_start_method('spawn')
 
 def split_sentences_in_context(example):
   context = example['context']
@@ -61,7 +61,7 @@ def main():
     for split in dataset:
         print(f"Preprocessing {split} dataset")
         dataset[split] = dataset[split].map(split_sentences_in_context, num_proc= 8)
-        dataset[split] = dataset[split].map(retrieval_top_k, fn_kwargs={"k": 3, "model": model}, num_proc= 8)
+        dataset[split] = dataset[split].map(retrieval_top_k, fn_kwargs={"k": 3, "model": model})
     
     dataset['train'] = dataset['train'].map(find_similar_evi, num_proc= 8)
 
