@@ -8,8 +8,10 @@ import random
 from sentence_transformers import SentenceTransformer, util
 import os
 from multiprocess import set_start_method
+import torch
 
-set_start_method("spawn")
+# set_start_method("spawn")
+torch.multiprocessing.set_start_method('spawn')
 
 def split_sentences_in_context(example):
   context = example['context']
