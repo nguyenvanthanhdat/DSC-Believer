@@ -9,8 +9,8 @@ from sentence_transformers import SentenceTransformer, util
 import os
 
 def main():
-    print(os.getcwd())
-    dataset = DatasetDict.load_from_disk('data/DSC-public')
+    path_root = os.getcwd()
+    dataset = DatasetDict.load_from_disk(os.path.join(path_root, 'data/DSC-public'))
     model = SentenceTransformer('multi-qa-mpnet-base-dot-v1').to('cuda')
 
     def split_sentences_in_context(context):
@@ -76,7 +76,7 @@ def main():
         i['context_list'] = split_sentences_in_context(i['context'])
         i['retrieval_list'] = retrieval_top_k(i['context_list'], i['claim'], 3)
 
-    dataset.save_to_disk('data/DSC-public-retrieval')
+    dataset.save_to_disk(os.path.join(path_root, 'data/DSC-public-retrieval'))
 
 
 if __name__ == "__main__":
