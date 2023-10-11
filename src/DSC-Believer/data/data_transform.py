@@ -7,6 +7,9 @@ import torch
 import random
 from sentence_transformers import SentenceTransformer, util
 import os
+from multiprocess import set_start_method
+
+set_start_method("spawn")
 
 def split_sentences_in_context(example):
   context = example['context']
