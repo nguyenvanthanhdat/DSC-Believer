@@ -1,4 +1,4 @@
-# mkdir data
+mkdir data
 
 cd data
 # wget -nc 
