@@ -42,15 +42,15 @@ def retrieval_top_k(example, k , model):
 def find_similar_evi(example):
   retrieval_list = example['retrieval']
   evidence = example['evidence']
-  claim = example['claim']
-  if claim == 'NEI':
-    example['has_evidence'] = 0
+  verdict = example['verdict']
+  if verdict == 'NEI':
+    example['has_evidence'] = -1
     return example
   for i in retrieval_list:
     if i == evidence:
       example['has_evidence'] = 1
       return example
-  example['has_evidence'] = -1
+  example['has_evidence'] = 0
   return example
 
 def main():
