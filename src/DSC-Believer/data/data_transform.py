@@ -55,10 +55,10 @@ def main():
 
     for split in dataset:
         print(f"Preprocessing {split} dataset")
-        dataset[split] = dataset[split].map(split_sentences_in_context)
-        dataset[split] = dataset[split].map(retrieval_top_k, fn_kwargs={"k": 3, "model": model})
+        dataset[split] = dataset[split].map(split_sentences_in_context, num_proc= 8)
+        dataset[split] = dataset[split].map(retrieval_top_k, fn_kwargs={"k": 3, "model": model}, num_proc= 8)
     
-    dataset['train'] = dataset['train'].map(find_similar_evi)
+    dataset['train'] = dataset['train'].map(find_similar_evi, num_proc= 8)
 
     dataset.save_to_disk(os.path.join(path_root, 'data/DSC-public-retrieval'))
     
