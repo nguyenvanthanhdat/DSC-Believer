@@ -44,7 +44,7 @@ def find_similar_evi(example):
   evidence = example['evidence']
   verdict = example['verdict']
   if verdict == 'NEI':
-    example['has_evidence'] = -1
+    example['has_evidence'] = -1 
     return example
   for i in retrieval_list:
     if i == evidence:
