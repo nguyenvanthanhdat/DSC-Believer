@@ -54,6 +54,7 @@ def main():
     model = SentenceTransformer('multi-qa-mpnet-base-dot-v1').to('cuda')
 
     for split in dataset:
+        print(f"Preprocessing {split} dataset")
         dataset[split] = dataset[split].map(split_sentences_in_context)
         dataset[split] = dataset[split].map(retrieval_top_k, fn_kwargs={"k": 3, "model": model})
     
