@@ -43,7 +43,14 @@ def main():
     train_dataset = SentencesDataset(train_examples, model)
     train_dataloader = DataLoader(train_dataset, batch_size=4)
 
-    model.fit(train_objectives=[(train_dataloader, train_loss)], epochs=10)
+    # model.fit(train_objectives=[(train_dataloader, train_loss)], epochs=10)
+
+    model.save_to_hub(
+        "DSC-SBERT", 
+        organization="presencesw",
+        train_datasets=["UIT/DSC"],
+        exist_ok=True, 
+    )
 
 
 if __name__ == "__main__":
