@@ -42,11 +42,12 @@ def main():
     train_loss = losses.TripletLoss(model = model)
     train_dataset = SentencesDataset(train_examples, model)
     train_dataloader = DataLoader(train_dataset, batch_size=4)
-
+    num_epochs = 10
+    warmup_steps = int(len(train_dataloader) * num_epochs * 0.1)
     model.fit(
         train_objectives=[(train_dataloader, train_loss)], 
-        epochs=10
-    )
+        epochs=num_epochs,
+        warmup_steps=warmup_steps)
 
     # model.push_to_hub('presencesw/DSC-Believer-SBERT')
     model.save_to_hub(
