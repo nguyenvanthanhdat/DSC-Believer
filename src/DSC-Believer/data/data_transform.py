@@ -56,16 +56,16 @@ def find_similar_evi(example):
 def main():
     path_root = os.getcwd()
     dataset = DatasetDict.load_from_disk(os.path.join(path_root, 'data/DSC-public'))
-    model = SentenceTransformer('multi-qa-mpnet-base-dot-v1').to('cuda')
+    # model = SentenceTransformer('multi-qa-mpnet-base-dot-v1').to('cuda')
 
     for split in dataset:
         print(f"Preprocessing {split} dataset")
         dataset[split] = dataset[split].map(split_sentences_in_context, num_proc= 8)
-        dataset[split] = dataset[split].map(retrieval_top_k, fn_kwargs={"k": 3, "model": model})
+    #     dataset[split] = dataset[split].map(retrieval_top_k, fn_kwargs={"k": 3, "model": model})
     
-    dataset['train'] = dataset['train'].map(find_similar_evi, num_proc= 8)
+    # dataset['train'] = dataset['train'].map(find_similar_evi, num_proc= 8)
 
-    dataset.save_to_disk(os.path.join(path_root, 'data/DSC-public-retrieval'))
+    dataset.save_to_disk(os.path.join(path_root, 'data/DSC-public-preprocess'))
     
     os.system("cd data & zip -r DSC-public-retrieval.zip DSC-public-retrieval")
 
