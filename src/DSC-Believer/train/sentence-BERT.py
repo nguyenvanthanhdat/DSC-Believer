@@ -43,13 +43,15 @@ def main():
     train_dataset = SentencesDataset(train_examples, model)
     train_dataloader = DataLoader(train_dataset, batch_size=4)
 
-    # model.fit(train_objectives=[(train_dataloader, train_loss)], epochs=10)
+    # model.fit(
+    #     train_objectives=[(train_dataloader, train_loss)], 
+    #     epochs=10,
+    #     output_path='/model')
 
+    # model.push_to_hub('presencesw/DSC-Believer-SBERT')
     model.save_to_hub(
-        "DSC-SBERT", 
-        organization="presencesw",
-        train_datasets=["UIT/DSC"],
-        exist_ok=True, 
+        repo_name= "presencesw/DSC-Believer-SBERT",
+        exist_ok=True
     )
 
 
