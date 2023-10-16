@@ -10,11 +10,11 @@ setuptools.setup(
     install_requires = [
         "datasets",
         "gdown",
-        "sentence-transformers",
+        "sentence-transformers == 2.2.2",
         "tqdm",
         "numpy",
         "ipywidgets",
-        "pyparsing"
+        "pyparsing",
     ],
     # dependency_links=[
     #     'https://download.pytorch.org/whl/cu121'
