@@ -30,8 +30,8 @@ def main():
         # batched=True
         )
     print(dataset)
+    dataset_train = dataset['train']
     n_examples = int(dataset_train.num_rows * 0.8)
-
     train_examples = []
 
     for i in range(n_examples):
