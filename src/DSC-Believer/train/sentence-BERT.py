@@ -28,7 +28,7 @@ def main():
         # batched=True
         )
     print(dataset)
-    dataset_train = dataset['train']
+    dataset_train = dataset['train'].filter(lambda example: example['verdict'] != 'NEI')
     n_examples = int(dataset_train.num_rows * 0.8)
 
     train_examples = []
