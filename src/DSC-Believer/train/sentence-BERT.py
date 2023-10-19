@@ -14,9 +14,10 @@ def create_triplet(example):
     claim = example['claim']
     postitive = example['evidence']
     negative = [i for i in example['context'] if i != postitive]
+    new_example.append([claim, postitive, 1])
     for i in range(len(negative)):
-        # new_example.append(InputExample(texts=[claim, postitive, negative[i]]))
-        new_example.append([claim, postitive, negative[i]])
+        new_example.append(InputExample(texts=[claim, postitive, negative[i]]))
+        # new_example.append([claim, negative[i], 0])
     return {'set': new_example}
 
 
@@ -38,11 +39,11 @@ def main():
         examples = dataset_train[i]['set']
         for example in examples:
             # print(example)
-            train_examples.append(InputExample(texts=[example[0], example[1],example[2]]))
+            train_examples.append(InputExample(texts=[example[0], example[1], example[2]]))
     model = SentenceTransformer("keepitreal/vietnamese-sbert")
     train_loss = losses.TripletLoss(model = model)
     train_dataset = SentencesDataset(train_examples, model)
-    train_dataloader = DataLoader(train_dataset, batch_size=50)
+    train_dataloader = DataLoader(train_dataset, batch_size=32)
     num_epochs = 10
     warmup_steps = int(len(train_dataloader) * num_epochs * 0.1)
     model_save_path = os.path.join(path_root, 'model/retrieval')
