@@ -14,16 +14,17 @@ def create_triplet(example):
     claim = example['claim']
     postitive = example['evidence']
     negative = [i for i in example['context'] if i != postitive]
-    new_example.append([claim, postitive, 1])
+    new_example.append([claim, postitive, '1'])
     for i in range(len(negative)):
         # new_example.append(InputExample(texts=[claim, postitive, negative[i]]))
-        new_example.append([claim, negative[i], 0])
+        new_example.append([claim, negative[i], '0'])
     return {'set': new_example}
 
 
 def main():
     path_root = os.getcwd()
     dataset = DatasetDict.load_from_disk(os.path.join(path_root, 'data/DSC-public-preprocess'))
+    dataset['train'] = dataset['train'].filter(lambda example: example['verdict'] != 'NEI')
     dataset['dataset_public_test'] = dataset['dataset_public_test'].filter(lambda example: example['verdict'] != 'NEI')
     dataset = dataset.map(
         create_triplet, 
@@ -40,7 +41,7 @@ def main():
         examples = dataset_train[i]['set']
         for example in examples:
             # print(example)
-            train_examples.append(InputExample(texts=[example[0], example[1]], label=example[2]))
+            train_examples.append(InputExample(texts=[example[0], example[1]], label=int(example[2])))
     model = SentenceTransformer("keepitreal/vietnamese-sbert")
     train_loss = losses.ContrastiveLoss(model=model)
     train_dataset = SentencesDataset(train_examples, model)
@@ -57,7 +58,7 @@ def main():
 
     # # model.push_to_hub('presencesw/DSC-Believer-SBERT')
     model.save_to_hub(
-        repo_name= "presencesw/DSC-Believer-SBERT_v1",
+        repo_name= "presencesw/DSC-Believer-SBERT_v2",
         exist_ok=True,
     )
 
