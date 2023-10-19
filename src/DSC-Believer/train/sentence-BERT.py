@@ -42,7 +42,7 @@ def main():
     model = SentenceTransformer("keepitreal/vietnamese-sbert")
     train_loss = losses.TripletLoss(model = model)
     train_dataset = SentencesDataset(train_examples, model)
-    train_dataloader = DataLoader(train_dataset, batch_size=32)
+    train_dataloader = DataLoader(train_dataset, batch_size=50)
     num_epochs = 10
     warmup_steps = int(len(train_dataloader) * num_epochs * 0.1)
     model_save_path = os.path.join(path_root, 'model/retrieval')
@@ -50,7 +50,7 @@ def main():
         train_objectives=[(train_dataloader, train_loss)], 
         epochs=num_epochs,
         output_path=model_save_path,
-        # warmup_steps=warmup_steps
+        warmup_steps=warmup_steps
     )
 
     # # model.push_to_hub('presencesw/DSC-Believer-SBERT')
