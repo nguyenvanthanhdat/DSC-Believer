@@ -38,7 +38,7 @@ def main():
         examples = dataset_train[i]['set']
         for example in examples:
             # print(example)
-            train_examples.append(InputExample(texts=[example[0], example[1],example[2]]))
+            train_examples.append(InputExample(texts=[example[0], example[1]], label=example[2]))
     model = SentenceTransformer("keepitreal/vietnamese-sbert")
     train_loss = losses.TripletLoss(model = model)
     train_dataset = SentencesDataset(train_examples, model)
