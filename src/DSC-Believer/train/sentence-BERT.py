@@ -50,7 +50,7 @@ def main():
         train_objectives=[(train_dataloader, train_loss)], 
         epochs=num_epochs,
         output_path=model_save_path,
-        warmup_steps=warmup_steps
+        # warmup_steps=warmup_steps
     )
 
     # # model.push_to_hub('presencesw/DSC-Believer-SBERT')
