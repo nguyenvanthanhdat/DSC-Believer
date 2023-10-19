@@ -14,10 +14,10 @@ def create_triplet(example):
     claim = example['claim']
     postitive = example['evidence']
     negative = [i for i in example['context'] if i != postitive]
-    new_example.append([claim, postitive, 1])
+    new_example.append([claim, postitive, '1'])
     for i in range(len(negative)):
         # new_example.append(InputExample(texts=[claim, postitive, negative[i]]))
-        new_example.append([claim, negative[i], 0])
+        new_example.append([claim, negative[i], '0'])
     return {'set': new_example}
 
 
