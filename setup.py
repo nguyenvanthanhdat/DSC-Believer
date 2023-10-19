@@ -10,7 +10,7 @@ setuptools.setup(
     install_requires = [
         "datasets",
         "gdown",
-        "sentence-transformers == 2.2.2",
+        # "sentence-transformers == 2.2.2",
         "tqdm",
         "numpy",
         "ipywidgets",
