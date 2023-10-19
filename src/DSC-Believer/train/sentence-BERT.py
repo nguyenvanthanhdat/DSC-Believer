@@ -42,7 +42,7 @@ def main():
     train_loss = losses.TripletLoss(model = model)
     train_dataset = SentencesDataset(train_examples, model)
     train_dataloader = DataLoader(train_dataset, batch_size=4)
-    num_epochs = 10
+    num_epochs = 5
     warmup_steps = int(len(train_dataloader) * num_epochs * 0.1)
     model.fit(
         train_objectives=[(train_dataloader, train_loss)], 
@@ -52,7 +52,7 @@ def main():
 
     # model.push_to_hub('presencesw/DSC-Believer-SBERT')
     model.save_to_hub(
-        repo_name= "presencesw/DSC-Believer-SBERT",
+        repo_name= "presencesw/DSC-Believer-SBERT_v1",
         exist_ok=True
     )
 
