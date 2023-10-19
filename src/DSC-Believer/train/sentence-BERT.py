@@ -47,7 +47,8 @@ def main():
     model.fit(
         train_objectives=[(train_dataloader, train_loss)], 
         epochs=num_epochs,
-        warmup_steps=warmup_steps)
+        # warmup_steps=warmup_steps
+    )
 
     # model.push_to_hub('presencesw/DSC-Believer-SBERT')
     model.save_to_hub(
