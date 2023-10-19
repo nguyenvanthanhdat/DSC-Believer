@@ -25,7 +25,7 @@ def main():
     path_root = os.getcwd()
     dataset = DatasetDict.load_from_disk(os.path.join(path_root, 'data/DSC-public-preprocess'))
     dataset['train'] = dataset['train'].filter(lambda example: example['verdict'] != 'NEI')
-    # dataset['dataset_public_test'] = dataset['dataset_public_test'].filter(lambda example: example['verdict'] != 'NEI')
+    dataset['dataset_public_test'] = dataset['dataset_public_test'].filter(lambda example: example['verdict'] != 'NEI')
     dataset = dataset.map(
         create_triplet, 
         remove_columns = ["verdict", "id", "context", "claim", "evidence"],
@@ -45,7 +45,7 @@ def main():
     model = SentenceTransformer("keepitreal/vietnamese-sbert")
     train_loss = losses.ContrastiveLoss(model=model)
     train_dataset = SentencesDataset(train_examples, model)
-    train_dataloader = DataLoader(train_dataset, batch_size=50)
+    train_dataloader = DataLoader(train_dataset, batch_size=32)
     num_epochs = 10
     warmup_steps = int(len(train_dataloader) * num_epochs * 0.1)
     model_save_path = os.path.join(path_root, 'model/retrieval')
@@ -58,7 +58,7 @@ def main():
 
     # # model.push_to_hub('presencesw/DSC-Believer-SBERT')
     model.save_to_hub(
-        repo_name= "presencesw/DSC-Believer-SBERT_v1",
+        repo_name= "presencesw/DSC-Believer-SBERT_v2",
         exist_ok=True,
     )
 
