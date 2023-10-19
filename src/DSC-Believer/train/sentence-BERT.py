@@ -7,6 +7,7 @@ from sentence_transformers import (
 )    
 from torch.utils.data import DataLoader
 from sentence_transformers.readers import InputExample
+from tqdm.notebook import tqdm
 
 def create_triplet(example):
     new_example = []
