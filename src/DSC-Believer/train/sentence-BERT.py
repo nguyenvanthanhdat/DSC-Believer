@@ -25,7 +25,6 @@ def main():
     path_root = os.getcwd()
     dataset = DatasetDict.load_from_disk(os.path.join(path_root, 'data/DSC-public-preprocess'))
     dataset['train'] = dataset['train'].filter(lambda example: example['verdict'] != 'NEI')
-    dataset['dataset_public_test'] = dataset['dataset_public_test'].filter(lambda example: example['verdict'] != 'NEI')
     dataset = dataset.map(
         create_triplet, 
         remove_columns = ["verdict", "id", "context", "claim", "evidence"],
