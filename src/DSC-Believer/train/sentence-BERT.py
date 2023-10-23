@@ -56,7 +56,7 @@ def main():
 
     # # model.push_to_hub('presencesw/DSC-Believer-SBERT')
     model.save_to_hub(
-        repo_name= "presencesw/DSC-Believer-SBERT_v1",
+        repo_name= "presencesw/DSC-Believer-SBERT_vTripleLoss",
         exist_ok=True,
     )
 
