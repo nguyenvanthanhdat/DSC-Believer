@@ -65,9 +65,7 @@ def main():
     
     # dataset['train'] = dataset['train'].map(find_similar_evi, num_proc= 8)
     train_data, val_data = train_test_split(dataset['train'], test_size=0.2, random_state=42)  # Split the train dataset into train and validation
-
-    dataset['train'] = train_data
-    dataset['validation'] = val_data
+    dataset.update({'train': train_data, 'test': dataset['dataset_public_test'], 'validation': val_data})
 
     dataset.save_to_disk(os.path.join(path_root, 'data/DSC-public-preprocess'))
     
