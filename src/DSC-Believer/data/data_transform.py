@@ -67,7 +67,7 @@ def main():
     train_val = dataset['train'].train_test_split(test_size=0.2, shuffle=True)  # Split the train dataset into train and validation
     new_dataset = DatasetDict({'train': train_val['train'], 'test': dataset['dataset_public_test'], 'validation': train_val['test']})
 
-    dataset.save_to_disk(os.path.join(path_root, 'data/DSC-public-preprocess'))
+    new_dataset.save_to_disk(os.path.join(path_root, 'data/DSC-public-preprocess'))
     
     os.system("cd data & zip -r DSC-public-retrieval.zip DSC-public-retrieval")
 
