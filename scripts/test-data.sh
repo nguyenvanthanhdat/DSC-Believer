@@ -2,7 +2,7 @@
 # huggingface-cli login --token $TOKEN --add_to_git_credential
 # cd ..
 git clone https://github.com/UKPLab/sentence-transformers.git
-ls
+cd DSC-Believer
 cd sentence-transformers
 pip install -e .
 cd DSC-Believer
