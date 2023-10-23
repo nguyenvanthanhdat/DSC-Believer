@@ -64,7 +64,7 @@ def main():
     #     dataset[split] = dataset[split].map(retrieval_top_k, fn_kwargs={"k": 3, "model": model})
     
     # dataset['train'] = dataset['train'].map(find_similar_evi, num_proc= 8)
-    train_val = dataset['train'].train_test_split(test_size=0.2, shuffle=True, stratify_by_column="verdict")  # Split the train dataset into train and validation
+    train_val = dataset['train'].train_test_split(test_size=0.2, shuffle=True)  # Split the train dataset into train and validation
     new_dataset = DatasetDict({'train': train_val['train'], 'test': dataset['dataset_public_test'], 'validation': train_val['test']})
 
     dataset.save_to_disk(os.path.join(path_root, 'data/DSC-public-preprocess'))
