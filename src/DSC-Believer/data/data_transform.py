@@ -9,7 +9,7 @@ from sentence_transformers import SentenceTransformer, util
 import os
 from multiprocess import set_start_method
 import torch
-
+from sklearn.model_selection import train_test_split
 # set_start_method("spawn")
 # torch.multiprocessing.set_start_method('spawn')
 
@@ -64,6 +64,10 @@ def main():
     #     dataset[split] = dataset[split].map(retrieval_top_k, fn_kwargs={"k": 3, "model": model})
     
     # dataset['train'] = dataset['train'].map(find_similar_evi, num_proc= 8)
+    train_data, val_data = train_test_split(dataset['train'], test_size=0.2, random_state=42)  # Split the train dataset into train and validation
+
+    dataset['train'] = train_data
+    dataset['validation'] = val_data
 
     dataset.save_to_disk(os.path.join(path_root, 'data/DSC-public-preprocess'))
     
