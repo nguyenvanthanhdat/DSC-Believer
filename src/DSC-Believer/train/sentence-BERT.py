@@ -8,6 +8,9 @@ from sentence_transformers import (
 from torch.utils.data import DataLoader
 from sentence_transformers.readers import InputExample
 from tqdm.notebook import tqdm
+import torch
+from transformers import AutoTokenizer, AutoModel
+import torch.nn.functional as F
 
 def create_triplet(example):
     new_example = []
@@ -20,19 +23,25 @@ def create_triplet(example):
         new_example.append([claim, negative[i], '0'])
     return {'set': new_example}
 
+def mean_pooling(model_output, attention_mask):
+    token_embeddings = model_output[0] #First element of model_output contains all token embeddings
+    input_mask_expanded = attention_mask.unsqueeze(-1).expand(token_embeddings.size()).float()
+    return torch.sum(token_embeddings * input_mask_expanded, 1) / torch.clamp(input_mask_expanded.sum(1), min=1e-9)
 
 def main():
     path_root = os.getcwd()
     dataset = DatasetDict.load_from_disk(os.path.join(path_root, 'data/DSC-public-preprocess'))
     dataset['train'] = dataset['train'].filter(lambda example: example['verdict'] != 'NEI')
+    print(dataset)
+    
     dataset = dataset.map(
         create_triplet, 
         remove_columns = ["verdict", "id", "context", "claim", "evidence"],
         # batched=True
         )
-    print(dataset)
+    
     dataset_train = dataset['train']
-    n_examples = int(dataset_train.num_rows * 0.8)
+    n_examples = len(dataset_train)    
 
     train_examples = []
 
@@ -60,7 +69,6 @@ def main():
         repo_name= "presencesw/DSC-Believer-SBERT_v2",
         exist_ok=True,
     )
-
 
 if __name__ == "__main__":
     main()
