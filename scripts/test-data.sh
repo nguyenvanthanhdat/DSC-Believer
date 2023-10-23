@@ -1,5 +1,5 @@
-TOKEN=$1
-huggingface-cli login --token $TOKEN --add_to_git_credential
+# TOKEN=$1
+# huggingface-cli login --token $TOKEN --add_to_git_credential
 cd ..
 git clone https://github.com/UKPLab/sentence-transformers.git
 cd sentence-transformers
