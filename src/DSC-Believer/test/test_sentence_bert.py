@@ -7,18 +7,16 @@ import os
 
 # Mean Pooling - Take attention mask into account for correct averaging
 def mean_pooling(model_output, attention_mask):
-    token_embeddings = model_output[0].to(device)  # First element of model_output contains all token embeddings
-    input_mask_expanded = attention_mask.unsqueeze(-1).expand(token_embeddings.size()).float().to(device)
+    token_embeddings = model_output[0]  # First element of model_output contains all token embeddings
+    input_mask_expanded = attention_mask.unsqueeze(-1).expand(token_embeddings.size()).float()
     return torch.sum(token_embeddings * input_mask_expanded, 1) / torch.clamp(input_mask_expanded.sum(1), min=1e-9)
 
 def main():
-    # Set device to GPU if available
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     path_root = os.getcwd()
     dataset = DatasetDict.load_from_disk(os.path.join(path_root, 'data/DSC-public-preprocess'))
     model_name = "presencesw/DSC-Believer-SBERT_v2"
     tokenizer = AutoTokenizer.from_pretrained(model_name)
-    model = AutoModel.from_pretrained(model_name).to(device)
+    model = AutoModel.from_pretrained(model_name)
 
     dataset_test = dataset['validation'].filter(lambda example: example['verdict'] != 'NEI')
     print(dataset_test)
@@ -30,7 +28,7 @@ def main():
         context = dataset_test[i]['context']
         evidence = dataset_test[i]['evidence']
 
-        encoded_input = tokenizer([claim] + context, padding=True, truncation=True, return_tensors="pt").to(device)
+        encoded_input = tokenizer([claim] + context, padding=True, truncation=True, return_tensors="pt")
         with torch.no_grad():
             output = model(**encoded_input)
 
