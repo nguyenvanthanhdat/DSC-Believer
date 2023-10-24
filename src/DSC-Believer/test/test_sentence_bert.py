@@ -3,6 +3,7 @@ import torch
 from transformers import AutoTokenizer, AutoModel
 import torch.nn.functional as F
 from datasets import DatasetDict
+import os
 
 # Mean Pooling - Take attention mask into account for correct averaging
 def mean_pooling(model_output, attention_mask):
