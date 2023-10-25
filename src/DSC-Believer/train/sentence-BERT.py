@@ -11,6 +11,9 @@ from tqdm.notebook import tqdm
 import torch
 from transformers import AutoTokenizer, AutoModel
 import torch.nn.functional as F
+from transformers.trainer_callback import TrainerCallback
+from tqdm.notebook import tqdm
+import gc
 
 def create_triplet(example):
     new_example = []
@@ -22,6 +25,12 @@ def create_triplet(example):
         # new_example.append(InputExample(texts=[claim, postitive, negative[i]]))
         new_example.append([claim, negative[i], '0'])
     return {'set': new_example}
+
+class ClearMemory(TrainerCallback):
+    def on_epoch_end(self, epoch, logs=None):
+        gc.collect()
+        torch.cuda.empty_cache()
+
 
 def mean_pooling(model_output, attention_mask):
     token_embeddings = model_output[0] #First element of model_output contains all token embeddings
