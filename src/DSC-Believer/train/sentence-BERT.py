@@ -56,6 +56,7 @@ def main():
     model_save_path = os.path.join(path_root, 'model/retrieval')
     checkpoint_path  = os.path.join(path_root, 'model/checkpoint')
     checkpoint_save_steps  = 2
+    checkpoint_save_total_limit = 1
     model.fit(
         train_objectives=[(train_dataloader, train_loss)], 
         epochs=num_epochs,
@@ -63,6 +64,7 @@ def main():
         warmup_steps=warmup_steps,
         checkpoint_path  = checkpoint_path,
         checkpoint_save_steps = checkpoint_save_steps,
+        checkpoint_save_total_limit = checkpoint_save_total_limit, 
         callback= ClearMemory()
     )
 
