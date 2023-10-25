@@ -10,4 +10,4 @@ python -m zipfile -e DSC-public.zip .
 python -m zipfile -e DSC-public-retrieval.zip .
 
 gdown 1rz4Z5P40lq7ecN-XbQUzgVRrCrKVY3hL
-python -m zipfile -e checkpoint.zip .
+python -m zipfile -e 22600.zip .
