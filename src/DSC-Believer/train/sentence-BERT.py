@@ -53,7 +53,7 @@ def main():
     model = SentenceTransformer("multi-qa-mpnet-base-dot-v1")
     train_loss = losses.ContrastiveLoss(model=model)
     train_dataset = SentencesDataset(train_examples, model)
-    train_dataloader = DataLoader(train_dataset, batch_size=50)
+    train_dataloader = DataLoader(train_dataset, batch_size=32)
     num_epochs = 10
     warmup_steps = int(len(train_dataloader) * num_epochs * 0.1)
     model_save_path = os.path.join(path_root, 'model/retrieval')
