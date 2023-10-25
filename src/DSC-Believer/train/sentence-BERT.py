@@ -58,12 +58,18 @@ def main():
     num_epochs = 10
     warmup_steps = int(len(train_dataloader) * num_epochs * 0.1)
     model_save_path = os.path.join(path_root, 'model/retrieval')
+    checkpoint_path  = os.path.join(path_root, 'model/checkpoint')
+    checkpoint_save_steps  = 200
+    checkpoint_save_total_limit = 3
     model.fit(
         train_objectives=[(train_dataloader, train_loss)], 
         epochs=num_epochs,
         output_path=model_save_path,
-        warmup_steps=warmup_steps
-    )
+        warmup_steps=warmup_steps,
+        checkpoint_path  = checkpoint_path,
+        checkpoint_save_steps = checkpoint_save_steps,
+        checkpoint_save_total_limit = checkpoint_save_total_limit, 
+        callback= ClearMemory())
 
     # # model.push_to_hub('presencesw/DSC-Believer-SBERT')
     model.save_to_hub(
