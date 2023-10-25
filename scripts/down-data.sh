@@ -8,7 +8,6 @@ gdown 1kVugTUWy-ZC3q0xklSjQnXjUHixmeMfX
 # tar -xf train_val_images.zip
 python -m zipfile -e DSC-public.zip .
 python -m zipfile -e DSC-public-retrieval.zip .
-cd .. 
-cd ../model
-gdown https://drive.google.com/uc?id=1tUpfw2Lt_BSon4Rn6vZFH4UEB0w743_v
+
+gdown --id 1tUpfw2Lt_BSon4Rn6vZFH4UEB0w743_v
 python -m zipfile -e checkpoint.zip .
