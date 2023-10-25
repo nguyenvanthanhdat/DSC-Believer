@@ -47,10 +47,9 @@ def main():
         for example in examples:
             # print(example)
             train_examples.append(InputExample(texts=[example[0], example[1], example[2]]))
-    model = SentenceTransformer("keepitreal/vietnamese-sbert")
-    model = SentenceTransformer("keepitreal/vietnamese-sbert")
-    checkpoint = torch.load(os.path.join(path_root, 'data/22600'))
-    model.load_state_dict(checkpoint['model_state_dict'])
+    model = SentenceTransformer("HgThinker/vietnamese-sbert")
+    # checkpoint = torch.load(os.path.join(path_root, 'data/22600'))
+    # model.load_state_dict(checkpoint['model_state_dict'])
     train_loss = losses.TripletLoss(model = model)
     train_dataset = SentencesDataset(train_examples, model)
     train_dataloader = DataLoader(train_dataset, batch_size=32)
