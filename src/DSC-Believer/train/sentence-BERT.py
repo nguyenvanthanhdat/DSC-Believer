@@ -50,7 +50,8 @@ def main():
         for example in examples:
             # print(example)
             train_examples.append(InputExample(texts=[example[0], example[1]], label=int(example[2])))
-    model = SentenceTransformer("multi-qa-mpnet-base-dot-v1")
+    # model = SentenceTransformer("multi-qa-mpnet-base-dot-v1")
+    model = SentenceTransformer("keepitreal/vietnamese-sbert")
     train_loss = losses.ContrastiveLoss(model=model)
     train_dataset = SentencesDataset(train_examples, model)
     train_dataloader = DataLoader(train_dataset, batch_size=32)
