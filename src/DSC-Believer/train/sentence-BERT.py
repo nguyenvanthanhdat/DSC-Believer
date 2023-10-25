@@ -62,9 +62,9 @@ def main():
         epochs=num_epochs,
         output_path=model_save_path,
         warmup_steps=warmup_steps,
-        checkpoint_path  = checkpoint_path,
-        checkpoint_save_steps = checkpoint_save_steps,
-        checkpoint_save_total_limit = checkpoint_save_total_limit, 
+        # checkpoint_path  = checkpoint_path,
+        # checkpoint_save_steps = checkpoint_save_steps,
+        # checkpoint_save_total_limit = checkpoint_save_total_limit, 
         callback= ClearMemory()
     )
 
