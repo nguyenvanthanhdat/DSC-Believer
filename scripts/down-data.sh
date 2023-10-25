@@ -9,5 +9,5 @@ gdown 1kVugTUWy-ZC3q0xklSjQnXjUHixmeMfX
 python -m zipfile -e DSC-public.zip .
 python -m zipfile -e DSC-public-retrieval.zip .
 
-gdown --id 1tUpfw2Lt_BSon4Rn6vZFH4UEB0w743_v
+gdown 1rz4Z5P40lq7ecN-XbQUzgVRrCrKVY3hL
 python -m zipfile -e checkpoint.zip .
