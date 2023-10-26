@@ -54,6 +54,7 @@ def find_similar_evi(example):
   return example
 
 def main():
+    random.seed(1234)
     path_root = os.getcwd()
     dataset = DatasetDict.load_from_disk(os.path.join(path_root, 'data/DSC-public'))
     # model = SentenceTransformer('multi-qa-mpnet-base-dot-v1').to('cuda')
@@ -64,7 +65,7 @@ def main():
     #     dataset[split] = dataset[split].map(retrieval_top_k, fn_kwargs={"k": 3, "model": model})
     
     # dataset['train'] = dataset['train'].map(find_similar_evi, num_proc= 8)
-    train_val = dataset['train'].train_test_split(test_size=0.2)  # Split the train dataset into train and validation
+    train_val = dataset['train'].train_test_split(test_size=0.2, seed = 1234)  # Split the train dataset into train and validation
     new_dataset = DatasetDict({'train': train_val['train'], 'test': dataset['dataset_public_test'], 'validation': train_val['test']})
 
     new_dataset.save_to_disk(os.path.join(path_root, 'data/DSC-public-preprocess'))
