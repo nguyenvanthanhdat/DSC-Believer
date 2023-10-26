@@ -69,7 +69,7 @@ def main():
 
     new_dataset.save_to_disk(os.path.join(path_root, 'data/DSC-public-preprocess'))
     
-    os.system("cd data & zip -r DSC-public-preprocess.zip DSC-public-preprocess")
+    os.system("cd data & zip -r DSC-public-preprocess.zip data/DSC-public-preprocess")
     os.system("cd data & zip -r DSC-public-retrieval.zip DSC-public-retrieval")
 
 if __name__ == "__main__":
