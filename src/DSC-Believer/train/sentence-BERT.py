@@ -30,6 +30,7 @@ class ClearMemory(TrainerCallback):
 
 def main():
     path_root = os.getcwd()
+    print(path_root)
     dataset = DatasetDict.load_from_disk(os.path.join(path_root, 'data/DSC-public-preprocess'))
     dataset['train'] = dataset['train'].filter(lambda example: example['verdict'] != 'NEI')
     print(dataset)
