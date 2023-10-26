@@ -74,7 +74,7 @@ def main():
     #     repo_name= "presencesw/DSC-Believer-SBERT_vTripletLoss",
     #     exist_ok=True,
     # )
-        model.save_to_hub(
+    model.save_to_hub(
         repo_name= "HgThinker/vietnamese-sbert",
         exist_ok=True,
     )
