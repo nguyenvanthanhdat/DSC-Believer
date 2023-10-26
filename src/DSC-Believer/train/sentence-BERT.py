@@ -48,31 +48,34 @@ def main():
             # print(example)
             train_examples.append(InputExample(texts=[example[0], example[1], example[2]]))
     model = SentenceTransformer("HgThinker/vietnamese-sbert")
-    # checkpoint = torch.load(os.path.join(path_root, 'data/22600'))
-    # model.load_state_dict(checkpoint['model_state_dict'])
     train_loss = losses.TripletLoss(model = model)
     train_dataset = SentencesDataset(train_examples, model)
     train_dataloader = DataLoader(train_dataset, batch_size=32)
-    num_epochs = 10
+    # num_epochs = 10
+    num_epochs = 2
     warmup_steps = int(len(train_dataloader) * num_epochs * 0.1)
     model_save_path = os.path.join(path_root, 'model/retrieval')
-    checkpoint_path  = os.path.join(path_root, 'model/checkpoint')
-    checkpoint_save_steps  = 200
-    checkpoint_save_total_limit = 3
+    # checkpoint_path  = os.path.join(path_root, 'model/checkpoint')
+    # checkpoint_save_steps  = 200
+    # checkpoint_save_total_limit = 3
     model.fit(
         train_objectives=[(train_dataloader, train_loss)], 
         epochs=num_epochs,
         output_path=model_save_path,
         warmup_steps=warmup_steps,
-        checkpoint_path  = checkpoint_path,
-        checkpoint_save_steps = checkpoint_save_steps,
-        checkpoint_save_total_limit = checkpoint_save_total_limit, 
+        # checkpoint_path  = checkpoint_path,
+        # checkpoint_save_steps = checkpoint_save_steps,
+        # checkpoint_save_total_limit = checkpoint_save_total_limit, 
         callback= ClearMemory()
     )
 
     # # model.push_to_hub('presencesw/DSC-Believer-SBERT')
-    model.save_to_hub(
-        repo_name= "presencesw/DSC-Believer-SBERT_vTripletLoss",
+    # model.save_to_hub(
+    #     repo_name= "presencesw/DSC-Believer-SBERT_vTripletLoss",
+    #     exist_ok=True,
+    # )
+        model.save_to_hub(
+        repo_name= "HgThinker/vietnamese-sbert",
         exist_ok=True,
     )
     
