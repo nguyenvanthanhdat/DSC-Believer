@@ -8,7 +8,7 @@ setuptools.setup(
     name="DSC-Believer",
     packages=setuptools.find_packages(),
     install_requires = [
-        "datasets",
+        "datasets == 2.5",
         "gdown",
         # "sentence-transformers == 2.2.2",
         "tqdm",
