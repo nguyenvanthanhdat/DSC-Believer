@@ -23,7 +23,7 @@ def main():
 
     n_samples_test = int(len(dataset_test)*0.8)
     predict_score = 0
-    for i in tqdm(range(n_samples_test)):
+    for i in tqdm(range(n_samples_test,len(dataset_test))):
         claim = dataset_test[i]['claim']
         context = dataset_test[i]['context']
         evidence = dataset_test[i]['evidence']
