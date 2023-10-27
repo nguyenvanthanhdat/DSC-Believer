@@ -14,9 +14,9 @@ def mean_pooling(model_output, attention_mask):
 def main():
     path_root = os.getcwd()
     dataset = DatasetDict.load_from_disk(os.path.join(path_root, 'data/DSC-public-preprocess'))
-    model_name = "presencesw/DSC-Believer-SBERT_v2"
+    model_name = "Gnartiel/vietnamese-sbert"
     tokenizer = AutoTokenizer.from_pretrained(model_name)
-    model = AutoModel.from_pretrained(model_name).to('cuda')
+    model = AutoModel.from_pretrained(model_name, use_auth_token='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').to('cuda')
 
     dataset_test = dataset['validation'].filter(lambda example: example['verdict'] != 'NEI')
     print(dataset_test)
