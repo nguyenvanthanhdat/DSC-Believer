@@ -5,6 +5,8 @@ import torch.nn.functional as F
 from datasets import DatasetDict
 import os
 
+# Set device to GPU if available
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Mean Pooling - Take attention mask into account for correct averaging
 def mean_pooling(model_output, attention_mask):
     token_embeddings = model_output[0]  # First element of model_output contains all token embeddings
@@ -17,7 +19,7 @@ def main():
     print(dataset)
     model_name = "HgThinker/vietnamese-sbert"
     tokenizer = AutoTokenizer.from_pretrained(model_name)
-    model = AutoModel.from_pretrained(model_name)
+    model = AutoModel.from_pretrained(model_name).to(device)
     dataset_test = dataset['train'].filter(lambda example: example['verdict'] != 'NEI')
     print(dataset_test)
 
@@ -28,7 +30,7 @@ def main():
         context = dataset_test[i]['context']
         evidence = dataset_test[i]['evidence']
 
-        encoded_input = tokenizer([claim] + context, padding=True, truncation=True, return_tensors="pt")
+        encoded_input = tokenizer([claim] + context, padding=True, truncation=True, return_tensors="pt").to(device)
         with torch.no_grad():
             output = model(**encoded_input)
 
