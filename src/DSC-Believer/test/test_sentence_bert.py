@@ -45,7 +45,7 @@ def main():
         if max_score_sentence == evidence:
             predict_score += 1
     
-    print(f"Performance of model with validation dataset: ", predict_score/n_samples_test*100, "%")
+    print(f"Performance of model with validation dataset: ", predict_score/(len(dataset_test)-n_samples_test)*100, "%")
 
 if __name__ == "__main__":
     main()
