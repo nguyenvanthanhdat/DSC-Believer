@@ -52,7 +52,8 @@ def main():
             # print(example)
             train_examples.append(InputExample(texts=[example[0], example[1]], label=int(example[2])))
     # model = SentenceTransformer("multi-qa-mpnet-base-dot-v1")
-    model = SentenceTransformer("Gnartiel/vietnamese-sbert", use_auth_token='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')
+    # model = SentenceTransformer("Gnartiel/vietnamese-sbert", use_auth_token='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')
+    model = SentenceTransformer("Gnartiel/multi-sbert", use_auth_token='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')
     train_loss = losses.ContrastiveLoss(model=model)
     train_dataset = SentencesDataset(train_examples, model)
     train_dataloader = DataLoader(train_dataset, batch_size=32)
@@ -79,7 +80,7 @@ def main():
     # )
 
     model.save_to_hub(
-        repo_name= "Gnartiel/vietnamese-sbert",
+        repo_name= "Gnartiel/multi-sbert",
         exist_ok=True,
     )
 
