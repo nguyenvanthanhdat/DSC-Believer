@@ -47,7 +47,7 @@ def main():
         for example in examples:
             # print(example)
             train_examples.append(InputExample(texts=[example[0], example[1], example[2]]))
-    model = SentenceTransformer("sentence-transformers/multi-qa-mpnet-base-dot-v1")
+    model = SentenceTransformer("HgThinker/multi-qa-mpnet-base-dot-v1")
     train_loss = losses.TripletLoss(model = model)
     train_dataset = SentencesDataset(train_examples, model)
     train_dataloader = DataLoader(train_dataset, batch_size=16)
