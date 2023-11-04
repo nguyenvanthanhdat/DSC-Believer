@@ -47,7 +47,7 @@ def main():
         for example in examples:
             # print(example)
             train_examples.append(InputExample(texts=[example[0], example[1], example[2]]))
-    model = SentenceTransformer("HgThinker/vietnamese-sbert",use_auth_token="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")
+    model = SentenceTransformer("sentence-transformers/multi-qa-mpnet-base-dot-v1")
     train_loss = losses.TripletLoss(model = model)
     train_dataset = SentencesDataset(train_examples, model)
     train_dataloader = DataLoader(train_dataset, batch_size=32)
@@ -75,7 +75,7 @@ def main():
     #     exist_ok=True,
     # )
     model.save_to_hub(
-        repo_name= "HgThinker/vietnamese-sbert",
+        repo_name= "HgThinker/multi-qa-mpnet-base-dot-v1",
         exist_ok=True,
     )
     
