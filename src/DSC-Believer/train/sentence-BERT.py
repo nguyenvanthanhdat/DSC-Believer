@@ -69,8 +69,8 @@ def main():
     model_save_path = os.path.join(path_root, 'model/retrieval')
     # checkpoint_path  = os.path.join(path_root, 'model/checkpoint')
     # checkpoint_save_steps  = 200
-    # checkpoint_save_total_limit = 3
-   losses =  model.fit(
+    # checkpoint_save_total_limit = 3    
+    losses =  model.fit(
         train_objectives=[(train_dataloader, train_loss)], 
         epochs=num_epochs,
         output_path=model_save_path,
