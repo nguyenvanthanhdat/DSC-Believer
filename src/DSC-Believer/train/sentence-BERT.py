@@ -11,7 +11,7 @@ from transformers.trainer_callback import TrainerCallback
 from tqdm.notebook import tqdm
 import gc
 import torch
-
+from torch.optim.adamw import AdamW
 def create_triplet(example):
     new_example = []
     claim = example['claim']
@@ -61,6 +61,8 @@ def main():
     model.fit(
         train_objectives=[(train_dataloader, train_loss)], 
         epochs=num_epochs,
+        optimizer_class=AdamW,
+        optimizer_params={'lr':0.00001},
         output_path=model_save_path,
         warmup_steps=warmup_steps,
         # checkpoint_path  = checkpoint_path,
