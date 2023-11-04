@@ -88,15 +88,15 @@ def main():
     plt.title('Training Loss Plot')
     plt.savefig('training_loss.png')
 
-    # model.save_to_hub(
-    #     repo_name= "Gnartiel/multi-sbert-v2",
-    #     exist_ok=True,
-    # )
-
     model.save_to_hub(
-        repo_name= "Gnartiel/vietnamese-sbert-v2",
+        repo_name= "Gnartiel/multi-sbert-v2",
         exist_ok=True,
     )
+
+    # model.save_to_hub(
+    #     repo_name= "Gnartiel/vietnamese-sbert-v2",
+    #     exist_ok=True,
+    # )
 
 if __name__ == "__main__":
     main()
