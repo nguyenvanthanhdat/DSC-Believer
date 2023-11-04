@@ -50,7 +50,7 @@ def main():
     model = SentenceTransformer("sentence-transformers/multi-qa-mpnet-base-dot-v1")
     train_loss = losses.TripletLoss(model = model)
     train_dataset = SentencesDataset(train_examples, model)
-    train_dataloader = DataLoader(train_dataset, batch_size=32)
+    train_dataloader = DataLoader(train_dataset, batch_size=16)
     # num_epochs = 10
     num_epochs = 2
     warmup_steps = int(len(train_dataloader) * num_epochs * 0.1)
