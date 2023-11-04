@@ -62,7 +62,7 @@ def main():
         train_objectives=[(train_dataloader, train_loss)], 
         epochs=num_epochs,
         optimizer_class=AdamW,
-        optimizer_params={'lr':0.00001},
+        optimizer_params={'lr':0.0001},
         output_path=model_save_path,
         warmup_steps=warmup_steps,
         # checkpoint_path  = checkpoint_path,
