@@ -145,7 +145,7 @@ def main():
     correct = 0
     total = 0
     with torch.no_grad():
-        for batch in test_loader:
+        for batch in val_loader:
             input_ids, attention_mask, labels = batch
             outputs = model(input_ids.to('cuda'), attention_mask=attention_mask.to('cuda'))
             logits = outputs.logits
