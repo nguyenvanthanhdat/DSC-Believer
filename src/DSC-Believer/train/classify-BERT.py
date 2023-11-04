@@ -113,7 +113,7 @@ def main():
     val_loader = DataLoader(val_dataset, batch_size=bs)
     
     
-    num_epochs = 20
+    num_epochs = 10
     best_loss = float('inf')
     for epoch in range(num_epochs):
         model.train()
