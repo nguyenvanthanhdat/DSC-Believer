@@ -135,7 +135,7 @@ def main():
         epoch_loss = np.mean(average_loss)
         print(f'Epoch {epoch + 1}/{num_epochs}, Loss: {epoch_loss}')
     
-        eval_loss = evaluate(val_loader, model)
+        eval_loss = evaluate(val_loader, model, loss_fn)
         if eval_loss < best_loss:
             best_loss = eval_loss
             best_model = model.state_dict()
