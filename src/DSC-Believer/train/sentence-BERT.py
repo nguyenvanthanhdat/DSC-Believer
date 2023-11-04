@@ -5,6 +5,9 @@ from sentence_transformers import (
     SentenceTransformer,
     SentencesDataset
 )    
+import matplotlib.pyplot as plt
+import torch.optim as optim
+from torch.optim.lr_scheduler import StepLR
 from torch.utils.data import DataLoader
 from sentence_transformers.readers import InputExample
 from tqdm.notebook import tqdm
@@ -53,34 +56,49 @@ def main():
             train_examples.append(InputExample(texts=[example[0], example[1]], label=int(example[2])))
     # model = SentenceTransformer("multi-qa-mpnet-base-dot-v1")
     # model = SentenceTransformer("Gnartiel/vietnamese-sbert", use_auth_token='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')
-    model = SentenceTransformer("Gnartiel/multi-sbert", use_auth_token='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')
+    # model = SentenceTransformer("Gnartiel/vietnamese-sbert-v2", use_auth_token='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')
+    # model = SentenceTransformer("Gnartiel/multi-sbert", use_auth_token='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')
+    model = SentenceTransformer("Gnartiel/multi-sbert-v2", use_auth_token='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')
     train_loss = losses.ContrastiveLoss(model=model)
     train_dataset = SentencesDataset(train_examples, model)
     train_dataloader = DataLoader(train_dataset, batch_size=32)
     num_epochs = 2
     warmup_steps = int(len(train_dataloader) * num_epochs * 0.1)
+    optimizer = optim.Adam(model.parameters(), lr=1e-5)
+    scheduler = StepLR(optimizer, step_size=1, gamma=0.7)
     model_save_path = os.path.join(path_root, 'model/retrieval')
     # checkpoint_path  = os.path.join(path_root, 'model/checkpoint')
     # checkpoint_save_steps  = 200
     # checkpoint_save_total_limit = 3
-    model.fit(
+   losses =  model.fit(
         train_objectives=[(train_dataloader, train_loss)], 
         epochs=num_epochs,
         output_path=model_save_path,
         warmup_steps=warmup_steps,
-        # checkpoint_path  = checkpoint_path,
-        # checkpoint_save_steps = checkpoint_save_steps,
-        # checkpoint_save_total_limit = checkpoint_save_total_limit, 
-        callback= ClearMemory())
+        optimizer=optimizer,
+        scheduler=scheduler,
+        callback=ClearMemory(),
+        show_progress_bar=True,
+        return_losses=True)
 
     # # model.push_to_hub('presencesw/DSC-Believer-SBERT')
     # model.save_to_hub(
     #     repo_name= "presencesw/DSC-Believer-SBERT_v2",
     #     exist_ok=True,
     # )
+    plt.plot(losses)
+    plt.xlabel('Iterations')
+    plt.ylabel('Loss')
+    plt.title('Training Loss Plot')
+    plt.savefig('training_loss.png')
+
+    # model.save_to_hub(
+    #     repo_name= "Gnartiel/multi-sbert-v2",
+    #     exist_ok=True,
+    # )
 
     model.save_to_hub(
-        repo_name= "Gnartiel/multi-sbert",
+        repo_name= "Gnartiel/vietnamese-sbert-v2",
         exist_ok=True,
     )
 
