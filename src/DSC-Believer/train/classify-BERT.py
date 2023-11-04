@@ -72,8 +72,6 @@ def main():
     train_data = dataset['train']
     val_data = dataset['validation']
     test_data = dataset['test']
-    n_examples = len(dataset_train)    
-
 
     model_name = "vinai/phobert-base"
     label_encoder = preprocessing.LabelEncoder()
