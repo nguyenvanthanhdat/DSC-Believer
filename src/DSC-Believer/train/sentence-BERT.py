@@ -79,8 +79,7 @@ def main():
         optimizer_class=optim.AdamW,  # Chỉ định trình tối ưu hóa mong muốn
         optimizer_params={'lr': 1e-5, 'weight_decay': 0.01},  # Tham số tối ưu hóa cụ thể
         callback=ClearMemory(),
-        show_progress_bar=True,
-        return_losses=True)
+        show_progress_bar=True)
 
     plt.plot(loss_values)
     plt.xlabel('Iterations')
