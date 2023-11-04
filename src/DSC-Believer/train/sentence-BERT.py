@@ -70,7 +70,7 @@ def main():
     # checkpoint_path  = os.path.join(path_root, 'model/checkpoint')
     # checkpoint_save_steps  = 200
     # checkpoint_save_total_limit = 3    
-    losses =  model.fit(
+    loss_values =  model.fit(
         train_objectives=[(train_dataloader, train_loss)], 
         epochs=num_epochs,
         output_path=model_save_path,
@@ -79,14 +79,10 @@ def main():
         scheduler=scheduler,
         callback=ClearMemory(),
         show_progress_bar=True,
-        return_losses=True)
+        return_losses=True
+    )
 
-    # # model.push_to_hub('presencesw/DSC-Believer-SBERT')
-    # model.save_to_hub(
-    #     repo_name= "presencesw/DSC-Believer-SBERT_v2",
-    #     exist_ok=True,
-    # )
-    plt.plot(losses)
+    plt.plot(loss_values)
     plt.xlabel('Iterations')
     plt.ylabel('Loss')
     plt.title('Training Loss Plot')
