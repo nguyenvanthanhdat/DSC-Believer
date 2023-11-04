@@ -67,6 +67,7 @@ def main():
     optimizer = optim.Adam(model.parameters(), lr=1e-5)
     scheduler = StepLR(optimizer, step_size=1, gamma=0.7)
     model_save_path = os.path.join(path_root, 'model/retrieval')
+    scheduler = "WarmupLinear"
     # checkpoint_path  = os.path.join(path_root, 'model/checkpoint')
     # checkpoint_save_steps  = 200
     # checkpoint_save_total_limit = 3    
