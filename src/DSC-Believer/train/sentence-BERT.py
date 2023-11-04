@@ -71,15 +71,16 @@ def main():
     # checkpoint_save_steps  = 200
     # checkpoint_save_total_limit = 3    
     loss_values =  model.fit(
-        train_objectives=[(train_dataloader, train_loss)], 
-        epochs=num_epochs,
-        output_path=model_save_path,
-        warmup_steps=warmup_steps,
-        optimizer=optimizer,
-        scheduler=scheduler,
-        callback=ClearMemory(),
-        show_progress_bar=True,
-        return_losses=True
+    train_objectives=[(train_dataloader, train_loss)], 
+    epochs=num_epochs,
+    output_path=model_save_path,
+    warmup_steps=warmup_steps,
+    scheduler=scheduler,
+    optimizer_class=optim.AdamW,  # Chỉ định trình tối ưu hóa mong muốn
+    optimizer_params={'lr': 1e-5, 'weight_decay': 0.01},  # Tham số tối ưu hóa cụ thể
+    callback=ClearMemory(),
+    show_progress_bar=True,
+    return_losses=True
     )
 
     plt.plot(loss_values)
