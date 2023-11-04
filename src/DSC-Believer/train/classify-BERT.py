@@ -15,6 +15,7 @@ import torch
 from transformers.trainer_callback import TrainerCallback
 import gc
 from transformers import BertTokenizer, BertForSequenceClassification
+import numpy as np
 
 def retrieval(example, model):
   context_list = example['context']
