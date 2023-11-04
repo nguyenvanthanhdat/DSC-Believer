@@ -16,6 +16,13 @@ from transformers.trainer_callback import TrainerCallback
 import gc
 from transformers import BertTokenizer, BertForSequenceClassification
 import numpy as np
+from transformers import AutoModel, AutoTokenizer, AutoModelForSequenceClassification, AutoModelForMultipleChoice, BertTokenizer, AdamW, Trainer, TrainingArguments, BertForSequenceClassification
+from sklearn import preprocessing
+from torch.utils.data import DataLoader, TensorDataset
+import torch.nn as nn
+import torch.optim as optim
+import numpy
+from torch import Tensor
 
 def retrieval(example, model):
   context_list = example['context']
