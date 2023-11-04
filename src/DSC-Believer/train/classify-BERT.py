@@ -32,7 +32,7 @@ def retrieval(example, model):
   similar = context_list[np.argmax(util.dot_score(claim_embedding, context_embedding))]
   example['retrieval'] = similar
   return example
-def evaluate(test_loader, model):
+def evaluate(test_loader, model, loss_fn):
   model.eval()
 
   eval_losses = []
