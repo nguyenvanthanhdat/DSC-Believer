@@ -15,7 +15,6 @@ setuptools.setup(
         "numpy",
         "ipywidgets",
         "pyparsing",
-        "json",
     ],
     # dependency_links=[
     #     'https://download.pytorch.org/whl/cu121'
