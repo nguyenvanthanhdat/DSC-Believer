@@ -73,7 +73,7 @@ def main():
     model.fit(
         train_objectives=[(train_dataloader, train_loss)], 
         epochs=num_epochs,
-        evaluation_steps=1000,
+        evaluation_steps=1,
         evaluator=evaluator,
         scheduler=scheduler,
         optimizer_class=optim.AdamW,  
