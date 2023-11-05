@@ -61,7 +61,7 @@ def main():
 
     for split in dataset:
         print(f"Preprocessing {split} dataset")
-        dataset[split] = dataset[split].map(split_sentences_in_context, num_proc= 8)
+        dataset[split] = dataset[split].map(split_sentences_in_context, num_proc= 4)
     #     dataset[split] = dataset[split].map(retrieval_top_k, fn_kwargs={"k": 3, "model": model})
     
     # dataset['train'] = dataset['train'].map(find_similar_evi, num_proc= 8)
