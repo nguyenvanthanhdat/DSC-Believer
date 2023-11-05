@@ -59,7 +59,7 @@ def main():
         for example in examples:
             # print(example)
             dev_examples.append(InputExample(texts=[example[0], example[1], example[2]]))
-    model = SentenceTransformer("keepitreal/vietnamese-sbert")
+    model = SentenceTransformer("HgThinker/vietnamese-sbert")
     train_loss = losses.TripletLoss(model = model)
     train_dataset = SentencesDataset(train_examples, model)
     train_dataloader = DataLoader(train_dataset, batch_size=16)
