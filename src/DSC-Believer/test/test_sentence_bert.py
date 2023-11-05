@@ -91,7 +91,11 @@ def main():
 
 
     test_inputs, test_labels = preprocess_data(test_data, label_encoder, tokenizer)
-     
+    test_dataset = TensorDataset(
+        test_inputs.input_ids,
+        test_inputs.attention_mask,
+        torch.tensor(test_labels, dtype=torch.long),
+    ) 
     bs = 50 
     test_loader = DataLoader(test_dataset, batch_size=bs)
         
