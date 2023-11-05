@@ -5,13 +5,14 @@ from sentence_transformers import (
     SentenceTransformer,
     SentencesDataset
 )    
+import matplotlib.pyplot as plt
 from torch.utils.data import DataLoader
 from sentence_transformers.readers import InputExample
 from transformers.trainer_callback import TrainerCallback
 from tqdm.notebook import tqdm
 import gc
 import torch
-from torch.optim.adamw import AdamW
+import torch.optim as optim
 def create_triplet(example):
     new_example = []
     claim = example['claim']
@@ -38,7 +39,7 @@ def main():
         )
     print(dataset)
     dataset_train = dataset['train']
-    n_examples = int(dataset_train.num_rows * 0.8)
+    n_examples = len(dataset_train)  
 
     train_examples = []
 
@@ -54,23 +55,29 @@ def main():
     # num_epochs = 10
     num_epochs = 2
     warmup_steps = int(len(train_dataloader) * num_epochs * 0.1)
+    optimizer = optim.Adam(model.parameters(), lr=1e-5)
+    scheduler = StepLR(optimizer, step_size=1, gamma=0.7)
+    scheduler = "WarmupLinear"
     model_save_path = os.path.join(path_root, 'model/retrieval')
-    # checkpoint_path  = os.path.join(path_root, 'model/checkpoint')
-    # checkpoint_save_steps  = 200
-    # checkpoint_save_total_limit = 3
-    model.fit(
+
+    loss_values = model.fit(
         train_objectives=[(train_dataloader, train_loss)], 
         epochs=num_epochs,
-        optimizer_class=AdamW,
-        optimizer_params={'lr':0.0001},
+        scheduler=scheduler,
+        optimizer_class=optim.AdamW,  
+        optimizer_params={'lr': 1e-5, 'weight_decay': 0.01},
         output_path=model_save_path,
         warmup_steps=warmup_steps,
-        # checkpoint_path  = checkpoint_path,
-        # checkpoint_save_steps = checkpoint_save_steps,
-        # checkpoint_save_total_limit = checkpoint_save_total_limit, 
-        callback= ClearMemory()
+        callback= ClearMemory(),
+        save_best_model = True,
+        show_progress_bar=True
     )
 
+    plt.plot(loss_values)
+    plt.xlabel('Iterations')
+    plt.ylabel('Loss')
+    plt.title('Training Loss Plot')
+    plt.savefig('training_loss.png')
     # # model.push_to_hub('presencesw/DSC-Believer-SBERT')
     # model.save_to_hub(
     #     repo_name= "presencesw/DSC-Believer-SBERT_vTripletLoss",
