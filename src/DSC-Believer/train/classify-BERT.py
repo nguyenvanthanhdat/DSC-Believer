@@ -162,8 +162,7 @@ def main():
     print(f"Accuracy: {accuracy}")
     
     model.push_to_hub(
-        repo_name= "Gnartiel/classify-bert",
-        exist_ok=True,
+        repo_name= "Gnartiel/classify-bert"
     )
 
 if __name__ == "__main__":
