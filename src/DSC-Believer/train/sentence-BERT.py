@@ -40,8 +40,8 @@ def main():
         )
     print(dataset)
     dataset_train = dataset['train']
-    n_examples = len(dataset_train)  
-
+    #n_examples = len(dataset_train)  
+    n_examples = 1
     train_examples = []
 
     for i in range(n_examples):
@@ -73,7 +73,7 @@ def main():
         save_best_model = True,
         show_progress_bar=True
     )
-
+    print("LOSS VALUES: ",loss_values)
     plt.plot(loss_values)
     plt.xlabel('Iterations')
     plt.ylabel('Loss')
