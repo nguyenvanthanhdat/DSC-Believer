@@ -43,7 +43,7 @@ def main():
     dataset_train = dataset['train']
     max_iter = len(dataset_train)
     n_examples = int(max_iter*0.8)  
-    n_examples = 1  
+    n_examples = 3  
 
     train_examples = []
     for i in range(n_examples):
@@ -53,7 +53,8 @@ def main():
             train_examples.append(InputExample(texts=[example[0], example[1], example[2]]))
     
     dev_examples = []
-    for i in range(n_examples, max_iter):
+    # for i in range(n_examples, max_iter):
+    for i in range(2):  
         examples = dataset_train[i]['set']
         for example in examples:
             # print(example)
