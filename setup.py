@@ -11,6 +11,7 @@ setuptools.setup(
         "datasets",
         "gdown",
         # "sentence-transformers == 2.2.2",
+        "matplotlib",
         "tqdm",
         "numpy",
         "ipywidgets",

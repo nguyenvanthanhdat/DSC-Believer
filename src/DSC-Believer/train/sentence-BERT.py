@@ -5,6 +5,7 @@ from sentence_transformers import (
     SentenceTransformer,
     SentencesDataset
 )    
+from torch.optim.lr_scheduler import StepLR
 import matplotlib.pyplot as plt
 from torch.utils.data import DataLoader
 from sentence_transformers.readers import InputExample
