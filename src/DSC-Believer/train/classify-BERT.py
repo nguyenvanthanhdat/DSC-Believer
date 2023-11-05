@@ -161,7 +161,7 @@ def main():
     accuracy = correct / total
     print(f"Accuracy: {accuracy}")
     
-    model.save_to_hub(
+    model.push_to_hub(
         repo_name= "Gnartiel/classify-bert",
         exist_ok=True,
     )
