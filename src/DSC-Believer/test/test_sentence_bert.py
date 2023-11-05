@@ -118,7 +118,7 @@ def main():
             'verdict' : i['verdict'],
             'evidence' : i['evidence']
         }
-    with open('public_result.json','w) as f:
+    with open('public_result.json','w') as f:
               json.dump(new_data,f)
     
 
