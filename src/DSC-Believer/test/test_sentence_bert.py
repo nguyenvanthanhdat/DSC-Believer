@@ -20,12 +20,12 @@ def main():
     model_name = "HgThinker/multi-qa-mpnet-base-dot-v1"
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModel.from_pretrained(model_name).to(device)
-    dataset_test = dataset['train'].filter(lambda example: example['verdict'] != 'NEI')
+    dataset_test = dataset['test'].filter(lambda example: example['verdict'] != 'NEI')
     print(dataset_test)
 
-    n_samples_test = int(len(dataset_test)*0.8)
+    n_samples_test = len(dataset_test)
     predict_score = 0
-    for i in tqdm(range(n_samples_test,len(dataset_test))):
+    for i in tqdm(range(n_samples_test)):
         claim = dataset_test[i]['claim']
         context = dataset_test[i]['context']
         evidence = dataset_test[i]['evidence']
@@ -45,7 +45,7 @@ def main():
         if max_score_sentence == evidence:
             predict_score += 1
     
-    print(f"Performance of model with validation dataset: ", predict_score/(len(dataset_test)-n_samples_test)*100, "%")
+    print(f"Performance of model with validation dataset: ", predict_score/n_samples_test*100, "%")
 
 if __name__ == "__main__":
     main()
