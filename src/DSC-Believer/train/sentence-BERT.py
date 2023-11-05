@@ -42,8 +42,8 @@ def main():
     print(dataset)
     dataset_train = dataset['train']
     max_iter = len(dataset_train)
-    n_examples = int(max_iter*0.8)  
-    n_examples = 3  
+    n_examples = int(max_iter*0.9)  
+    # n_examples = 3  
 
     train_examples = []
     for i in range(n_examples):
@@ -53,8 +53,8 @@ def main():
             train_examples.append(InputExample(texts=[example[0], example[1], example[2]]))
     
     dev_examples = []
-    # for i in range(n_examples, max_iter):
-    for i in range(2):  
+    for i in range(n_examples, max_iter):
+    # for i in range(2):  
         examples = dataset_train[i]['set']
         for example in examples:
             # print(example)
@@ -70,11 +70,11 @@ def main():
     scheduler = StepLR(optimizer, step_size=1, gamma=0.7)
     scheduler = "WarmupLinear"
     model_save_path = os.path.join(path_root, 'model/retrieval')
-    evaluator = TripletEvaluator.from_input_examples(dev_examples,batch_size=16,name = 'dev')
+    evaluator = TripletEvaluator.from_input_examples(dev_examples,batch_size=16,name = 'dev_loss')
     model.fit(
         train_objectives=[(train_dataloader, train_loss)], 
         epochs=num_epochs,
-        evaluation_steps=1,
+        evaluation_steps=1000,
         evaluator=evaluator,
         scheduler=scheduler,
         optimizer_class=optim.AdamW,  
