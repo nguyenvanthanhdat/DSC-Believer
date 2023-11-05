@@ -1,5 +1,5 @@
 mkdir data
-import gdown
+
 cd data
 # wget -nc 
 gdown 1kCifEFEvL0GY77lY2XZZAm9esm04HtA9 
