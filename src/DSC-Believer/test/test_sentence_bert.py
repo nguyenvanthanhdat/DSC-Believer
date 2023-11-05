@@ -17,7 +17,7 @@ def main():
     path_root = os.getcwd()
     dataset = DatasetDict.load_from_disk(os.path.join(path_root, 'data/DSC-public-preprocess'))
     print(dataset)
-    model_name = "HgThinker/multi-qa-mpnet-base-dot-v1"
+    model_name = "HgThinker/vietnamese-sbert"
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModel.from_pretrained(model_name).to(device)
     dataset_test = dataset['test'].filter(lambda example: example['verdict'] != 'NEI')
