@@ -74,7 +74,7 @@ def main():
     model = SentenceTransformer(model_name).to('cuda')
     for split in dataset:
         print(f"Preprocessing {split} dataset")
-        dataset[split] = dataset[split].map(retrieval, fn_kwargs={"model": model}, num_proc= 8)
+        dataset[split] = dataset[split].map(retrieval, fn_kwargs={"model": model})
         
     print(dataset)
     train_data = dataset['train']
