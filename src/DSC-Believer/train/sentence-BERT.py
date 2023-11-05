@@ -81,7 +81,7 @@ def main():
         optimizer_params={'lr': 1e-5, 'weight_decay': 0.01},
         output_path=model_save_path,
         warmup_steps=warmup_steps,
-        callback= ClearMemory(),
+        # callback= ClearMemory(),
         save_best_model = True,
         show_progress_bar=True
     )
