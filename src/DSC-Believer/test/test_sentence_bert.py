@@ -72,14 +72,14 @@ def main():
     dataset = DatasetDict.load_from_disk(os.path.join(path_root, 'data/DSC-public-preprocess'))
     model_name = "Gnartiel/vietnamese-sbert"
     model = SentenceTransformer(model_name).to('cuda')
-    for split in dataset:
-        print(f"Preprocessing {split} dataset")
-        if split != 'train':
-            dataset[split] = dataset[split].map(retrieval, fn_kwargs={"model": model})
+    # for split in dataset:
+    #     print(f"Preprocessing {split} dataset")
+    #     if split != 'train':
+    dataset['test'] = dataset['test'].map(retrieval, fn_kwargs={"model": model})
         
     print(dataset)
-    train_data = dataset['train']
-    val_data = dataset['validation']
+    # train_data = dataset['train']
+    # val_data = dataset['validation']
     test_data = dataset['test']
 
     model_name = "Gnartiel/BERT-classify"
