@@ -20,7 +20,7 @@ def main():
     model_name = "HgThinker/vietnamese-sbert"
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModel.from_pretrained(model_name).to(device)
-    dataset_test = dataset['dataset_public_test'].filter(lambda example: example['verdict'] != 'NEI')
+    dataset_test = dataset['validation'].filter(lambda example: example['verdict'] != 'NEI')
     print(dataset_test)
 
     n_samples_test = len(dataset_test)
