@@ -70,7 +70,7 @@ def main():
     path_root = os.getcwd()
     print('PREPARING DATA ===============================================================')
     dataset = DatasetDict.load_from_disk(os.path.join(path_root, 'data/DSC-public-preprocess'))
-    model_name = "Gnartiel/vietnamese-sbert"
+    model_name = "HgThinker/vietnamese-sbert"
     model = SentenceTransformer(model_name).to('cuda')
     # for split in dataset:
     #     print(f"Preprocessing {split} dataset")
@@ -82,7 +82,7 @@ def main():
     # val_data = dataset['validation']
     test_data = dataset['test']
 
-    model_name = "Gnartiel/BERT-classify"
+    model_name = "HgThinker/classify-bert"
     label_encoder = preprocessing.LabelEncoder()
     model =  AutoModelForSequenceClassification.from_pretrained(model_name).to('cuda')
     tokenizer = AutoTokenizer.from_pretrained(model_name)
