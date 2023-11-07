@@ -162,7 +162,8 @@ def main():
     print(f"Accuracy: {accuracy}")
     
     model.push_to_hub(
-        repo_name= "HgThinker/classify-bert"
+        repo_name= "HgThinker/classify-bert",
+        exist_ok=True,
     )
 
 if __name__ == "__main__":
