@@ -69,7 +69,7 @@ def main():
     path_root = os.getcwd()
     print('PREPARING DATA ===============================================================')
     dataset = DatasetDict.load_from_disk(os.path.join(path_root, 'data/DSC-public-preprocess'))
-    model_name = "Gnartiel/vietnamese-sbert"
+    model_name = "HgThinker/vietnamese-sbert"
     model = SentenceTransformer(model_name).to('cuda')
     for split in dataset:
         print(f"Preprocessing {split} dataset")
@@ -162,7 +162,7 @@ def main():
     print(f"Accuracy: {accuracy}")
     
     model.push_to_hub(
-        repo_name= "Gnartiel/classify-bert"
+        repo_name= "HgThinker/classify-bert"
     )
 
 if __name__ == "__main__":
