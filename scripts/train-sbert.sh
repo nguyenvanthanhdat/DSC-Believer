@@ -1,4 +1,4 @@
-huggingface-cli login --token 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
+huggingface-cli login --token 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
 cd ..
 git clone https://github.com/UKPLab/sentence-transformers.git
 cd sentence-transformers
